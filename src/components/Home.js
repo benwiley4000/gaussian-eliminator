@@ -9,7 +9,7 @@ const defaultSystem = new linearsystems.LinearSystem([
 ]);
 
 class Home extends Component {
-  render() {
+  render () {
     return (
       <div className="Eliminator">
         <div className="Eliminator-header">

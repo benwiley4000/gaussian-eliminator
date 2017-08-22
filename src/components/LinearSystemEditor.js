@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LinearEquationEditor from './LinearEquationEditor';
 
 class LinearSystemEditor extends Component {
-  render() {
+  render () {
     const { system: { equations } } = this.props;
     return (
       <div className="linear-system">

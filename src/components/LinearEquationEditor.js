@@ -1,44 +1,49 @@
 import React, { Component } from 'react';
-
-const numberSubscriptOffset = 8272;
-
-function numberToSubscript (num) {
-  return Array.prototype.reduce.call(num.toString(), (acc, digit) => {
-    return acc + (
-      isNaN(digit)
-        ? digit
-        : String.fromCharCode(digit.charCodeAt(0) + numberSubscriptOffset)
-    );
-  }, '');
-}
-
-function dimensionIndexToSymbol (index, totalDimensions) {
-  if (totalDimensions > 3) {
-    return `x${numberToSubscript(index + 1)}`;
-  }
-  switch (index) {
-    case 0:
-      return 'x';
-    case 1:
-      return 'y';
-    case 2:
-      return 'z';
-  }
-}
+import VariableEditor from './VariableEditor';
+import ConstantEditor from './ConstantEditor';
+import { linearequations } from 'pure-linear-algebra';
 
 class LinearEquationEditor extends Component {
-  render() {
-    const { equation: { coefficients, constant } } = this.props;
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      equation: props.equation
+    };
+
+    this.handleCoefficientUpdate = this.handleCoefficientUpdate.bind(this);
+    this.handleConstantUpdate = this.handleConstantUpdate.bind(this);
+  }
+
+  handleCoefficientUpdate (dimensionIndex, coefficient) {
+    const { coefficients, constant } = this.state.equation;
+    const newCoefficients = coefficients.slice();
+    newCoefficients[dimensionIndex] = coefficient;
+    this.setState({
+      equation: new linearequations.LinearEquation(newCoefficients, constant)
+    });
+  }
+
+  handleConstantUpdate (constant) {
+    const { coefficients } = this.state.equation;
+    this.setState({
+      equation: new linearequations.LinearEquation(coefficients, constant)
+    });
+  }
+
+  render () {
+    const { equation: { coefficients, constant } } = this.state;
     return (
       <div className="row linear-equation align-items-center">
         {coefficients.reduce((memo, coefficient, index) => {
           memo.push(
-            <div className="input-group variable" key={`var-${index}`}>
-              <input className="form-control" pattern="[0-9]*" type="number" defaultValue={coefficient} />
-              <span className="input-group-addon">
-                <var>{dimensionIndexToSymbol(index, coefficients.length)}</var>
-              </span>
-            </div>
+            <VariableEditor
+              key={`var-${index}`}
+              value={coefficient}
+              dimensionIndex={index}
+              totalDimensions={coefficients.length}
+              onUpdate={this.handleCoefficientUpdate}
+            />
           );
           memo.push(
             <span className="operator" key={`op-${index}`}>
@@ -47,7 +52,7 @@ class LinearEquationEditor extends Component {
           );
           return memo;
         }, [])}
-        <input className="form-control constant" pattern="[0-9]*" type="number" defaultValue={constant} />
+        <ConstantEditor value={constant} onUpdate={this.handleConstantUpdate} />
       </div>
     );
   }
