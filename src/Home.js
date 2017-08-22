@@ -5,29 +5,43 @@ import './Home.css';
 class Home extends Component {
   render() {
     return (
-      <div className="Home">
-        <div className="Home-header">
-          <img src={logo} className="Home-logo" alt="logo" />
-          <h2>Welcome to Razzle</h2>
+      <div className="Eliminator">
+        <div className="Eliminator-header">
+          <h1>The Gaussian Eliminator</h1>
         </div>
-        <p className="Home-intro">
-          To get started, edit
-          {' '}
-          <code>src/App.js</code>
-          {' '}
-          or
-          {' '}
-          <code>src/Home.js</code>
-          {' '}
-          and save to reload.
-        </p>
-        <ul className="Home-resources">
-          <li><a href="https://github.com/jaredpalmer/razzle">Docs</a></li>
-          <li>
-            <a href="https://github.com/jaredpalmer/razzle/issues">Issues</a>
-          </li>
-          <li><a href="https://palmer.chat">Community Slack</a></li>
-        </ul>
+        <div className="Eliminator-body container">
+          <div className="row justify-content-center">
+            <p className="col-12">Welcome to the Gaussian Eliminator.</p>
+            <div className="linear-system">
+              <div className="row linear-equation align-items-center">
+                <div className="input-group variable">
+                  <input className="form-control" pattern="[0-9]*" type="number" />
+                  <span className="input-group-addon"><var>x</var></span>
+                </div>
+                <span className="operator">+</span>
+                <div className="input-group variable">
+                  <input className="form-control" pattern="[0-9]*" type="number" />
+                  <span className="input-group-addon"><var>y</var></span>
+                </div>
+                <span className="operator">=</span>
+                <span className="constant">19</span>
+              </div>
+              <div className="row linear-equation align-items-center">
+                <div className="input-group variable">
+                  <input className="form-control" pattern="[0-9]*" type="number" />
+                  <span className="input-group-addon"><var>x</var></span>
+                </div>
+                <span className="operator">+</span>
+                <div className="input-group variable">
+                  <input className="form-control" pattern="[0-9]*" type="number" />
+                  <span className="input-group-addon"><var>y</var></span>
+                </div>
+                <span className="operator">=</span>
+                <span className="constant">1</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -1,33 +1,46 @@
-.Home {
+.Eliminator {
   text-align: center;
 }
 
-.Home-logo {
-  animation: Home-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.Home-header {
+.Eliminator-header {
   background-color: #222;
-  height: 150px;
   padding: 20px;
   color: white;
 }
 
-.Home-intro {
+.Eliminator-body {
   font-size: large;
+  margin-top: 2rem;
 }
 
-.Home-resources {
-  list-style: none;
+.linear-system .linear-equation {
+  padding-bottom: 0.8em;
 }
 
-.Home-resources > li {
-  display: inline-block;
-  padding: 1rem;
+.linear-equation .input-group {
+  width: initial;
 }
 
-@keyframes Home-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.linear-equation .input-group.variable input {
+  width: 3em;
+}
+
+.linear-equation .operator {
+  padding: 0.3em 0.7em;
+}
+
+.linear-equation .operator,
+.linear-equation .constant {
+  font-size: 1.2em;
+}
+
+/* Hide numeric input UI for Firefox */
+.Eliminator-body input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+/* Hide numeric input UI for Webkit */
+.Eliminator-body input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
