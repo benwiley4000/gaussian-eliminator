@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
-import logo from './react.svg';
+import { linearsystems, linearequations } from 'pure-linear-algebra';
 import './Home.css';
+import LinearSystemEditor from './LinearSystemEditor';
+
+const defaultSystem = new linearsystems.LinearSystem([
+  new linearequations.LinearEquation([3, 4, 5, 4], 19),
+  new linearequations.LinearEquation([54, 2, -2, 5], -1)
+]);
 
 class Home extends Component {
   render() {
@@ -12,34 +18,7 @@ class Home extends Component {
         <div className="Eliminator-body container">
           <div className="row justify-content-center">
             <p className="col-12">Welcome to the Gaussian Eliminator.</p>
-            <div className="linear-system">
-              <div className="row linear-equation align-items-center">
-                <div className="input-group variable">
-                  <input className="form-control" pattern="[0-9]*" type="number" />
-                  <span className="input-group-addon"><var>x</var></span>
-                </div>
-                <span className="operator">+</span>
-                <div className="input-group variable">
-                  <input className="form-control" pattern="[0-9]*" type="number" />
-                  <span className="input-group-addon"><var>y</var></span>
-                </div>
-                <span className="operator">=</span>
-                <span className="constant">19</span>
-              </div>
-              <div className="row linear-equation align-items-center">
-                <div className="input-group variable">
-                  <input className="form-control" pattern="[0-9]*" type="number" />
-                  <span className="input-group-addon"><var>x</var></span>
-                </div>
-                <span className="operator">+</span>
-                <div className="input-group variable">
-                  <input className="form-control" pattern="[0-9]*" type="number" />
-                  <span className="input-group-addon"><var>y</var></span>
-                </div>
-                <span className="operator">=</span>
-                <span className="constant">1</span>
-              </div>
-            </div>
+            <LinearSystemEditor system={defaultSystem} />
           </div>
         </div>
       </div>

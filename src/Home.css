@@ -21,7 +21,8 @@
   width: initial;
 }
 
-.linear-equation .input-group.variable input {
+.linear-equation .input-group.variable input,
+.linear-equation input.constant {
   width: 3em;
 }
 
@@ -35,12 +36,12 @@
 }
 
 /* Hide numeric input UI for Firefox */
-.Eliminator-body input[type=number] {
+.linear-equation input[type=number] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
 /* Hide numeric input UI for Webkit */
-.Eliminator-body input[type=number]::-webkit-inner-spin-button {
+.linear-equation input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
