@@ -13,6 +13,14 @@
   margin-top: 2rem;
 }
 
+.Eliminator-body .prompt {
+  margin-bottom: 2rem;
+}
+
+.linear-system-container .size-selection {
+  padding-bottom: 1.4em;
+}
+
 .linear-system .linear-equation {
   padding-bottom: 0.8em;
 }

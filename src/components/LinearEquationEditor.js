@@ -15,6 +15,23 @@ class LinearEquationEditor extends Component {
     this.handleConstantUpdate = this.handleConstantUpdate.bind(this);
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (this.props.equation !== nextProps.equation) {
+      this.setState({
+        equation: nextProps.equation
+      });
+    }
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (
+      prevState.equation !== this.state.equation &&
+      this.props.equation !== this.state.equation
+    ) {
+      this.props.onUpdate(this.props.rowIndex, this.state.equation);
+    }
+  }
+
   handleCoefficientUpdate (dimensionIndex, coefficient) {
     const { coefficients, constant } = this.state.equation;
     const newCoefficients = coefficients.slice();

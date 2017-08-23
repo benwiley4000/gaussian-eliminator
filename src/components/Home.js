@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import { linearsystems, linearequations } from 'pure-linear-algebra';
 import './Home.css';
 import LinearSystemEditor from './LinearSystemEditor';
-
-const defaultSystem = new linearsystems.LinearSystem([
-  new linearequations.LinearEquation([3, 4, 5, 4], 19),
-  new linearequations.LinearEquation([54, 2, -2, 5], -1)
-]);
 
 class Home extends Component {
   render () {
@@ -17,8 +11,8 @@ class Home extends Component {
         </div>
         <div className="Eliminator-body container">
           <div className="row justify-content-center">
-            <p className="col-12">Welcome to the Gaussian Eliminator.</p>
-            <LinearSystemEditor system={defaultSystem} />
+            <h4 className="col-12 prompt">Enter a linear system to solve</h4>
+            <LinearSystemEditor />
           </div>
         </div>
       </div>
