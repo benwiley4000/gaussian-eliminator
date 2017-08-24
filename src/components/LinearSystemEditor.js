@@ -62,7 +62,11 @@ class LinearSystemEditor extends Component {
         </div>
         <div className="linear-system">
           {system.equations.map((equation, i) =>
-            <LinearEquationEditorContainer key={i} rowIndex={i} equation={equation} />
+            <LinearEquationEditorContainer
+              key={i}
+              rowIndex={i}
+              equation={equation}
+            />
           )}
         </div>
       </div>
