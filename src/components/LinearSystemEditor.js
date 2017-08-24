@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import LinearEquationEditor from './LinearEquationEditor';
-import { linearsystems, linearequations } from 'pure-linear-algebra';
+import LinearEquationEditorContainer from './LinearEquationEditorContainer';
 
 function getRange (min, max) {
   const range = Array(max - min + 1);
@@ -8,14 +7,6 @@ function getRange (min, max) {
     range[n - min] = <option key={n} value={n}>{n}</option>;
   }
   return range;
-}
-
-function zeroArray (size) {
-  const array = Array(size);
-  for (let i = 0; i < size; i++) {
-    array[i] = 0;
-  }
-  return array;
 }
 
 const equationCountMin = 2;
@@ -29,71 +20,20 @@ const variableCountRange = getRange(variableCountMin, variableCountMax);
 class LinearSystemEditor extends Component {
   constructor (props) {
     super(props);
-
-    this.state = {
-      equationCount: equationCountMin,
-      variableCount: variableCountMin,
-      system: new linearsystems.LinearSystem([
-        new linearequations.LinearEquation(zeroArray(2), 0),
-        new linearequations.LinearEquation(zeroArray(2), 0)
-      ])
-    };
-
     this.handleEquationCountChange = this.handleEquationCountChange.bind(this);
     this.handleVariableCountChange = this.handleVariableCountChange.bind(this);
-    this.handleEquationUpdate = this.handleEquationUpdate.bind(this);
   }
 
   handleEquationCountChange (e) {
-    const newEquationCount = Number(e.target.value);
-    const { equationCount, variableCount, system } = this.state;
-    const difference = newEquationCount - equationCount;
-    if (difference === 0) {
-      return;
-    }
-    this.setState({
-      equationCount: newEquationCount,
-      system: new linearsystems.LinearSystem(
-        difference < 0
-          ? system.equations.slice(0, newEquationCount)
-          : system.equations.concat(zeroArray(difference).map(() =>
-            new linearequations.LinearEquation(zeroArray(variableCount), 0)
-          ))
-      )
-    });
+    this.props.onEquationCountChange(Number(e.target.value));
   }
 
   handleVariableCountChange (e) {
-    const newVariableCount = Number(e.target.value);
-    const { variableCount, system } = this.state;
-    const difference = newVariableCount - variableCount;
-    if (difference === 0) {
-      return;
-    }
-    this.setState({
-      variableCount: newVariableCount,
-      system: new linearsystems.LinearSystem(
-        system.equations.map(({ coefficients, constant }) =>
-          new linearequations.LinearEquation(
-            difference < 0
-              ? coefficients.slice(0, newVariableCount)
-              : coefficients.concat(zeroArray(difference)),
-            constant
-          )
-        )
-      )
-    });
-  }
-
-  handleEquationUpdate (rowIndex, equation) {
-    const newEquations = this.state.system.equations.slice();
-    newEquations[rowIndex] = equation;
-    this.setState({
-      system: new linearsystems.LinearSystem(newEquations)
-    });
+    this.props.onVariableCountChange(Number(e.target.value));
   }
 
   render () {
+    const { equationCount, variableCount, system } = this.props;
     return (
       <div className="row justify-content-center linear-system-container">
         <div className="col-12 size-selection">
@@ -102,6 +42,7 @@ class LinearSystemEditor extends Component {
               Equations{' '}
               <select
                 className="custom-select"
+                value={equationCount}
                 onChange={this.handleEquationCountChange}
               >
                 {equationCountRange}
@@ -111,6 +52,7 @@ class LinearSystemEditor extends Component {
               Variables{' '}
               <select
                 className="custom-select"
+                value={variableCount}
                 onChange={this.handleVariableCountChange}
               >
                 {variableCountRange}
@@ -119,13 +61,8 @@ class LinearSystemEditor extends Component {
           </div>
         </div>
         <div className="linear-system">
-          {this.state.system.equations.map((equation, i) =>
-            <LinearEquationEditor
-              key={i}
-              rowIndex={i}
-              equation={equation}
-              onUpdate={this.handleEquationUpdate}
-            />
+          {system.equations.map((equation, i) =>
+            <LinearEquationEditorContainer key={i} rowIndex={i} equation={equation} />
           )}
         </div>
       </div>

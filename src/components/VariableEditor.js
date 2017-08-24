@@ -30,12 +30,12 @@ class VariableEditor extends Component {
   constructor (props) {
     super(props);
 
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleUpdate (e) {
-    const { onUpdate, dimensionIndex } = this.props;
-    onUpdate(dimensionIndex, e.target.value);
+  handleChange (e) {
+    const { onChange, dimensionIndex } = this.props;
+    onChange(dimensionIndex, e.target.value);
   }
 
   render () {
@@ -47,7 +47,7 @@ class VariableEditor extends Component {
           pattern="[0-9]*"
           type="number"
           value={value}
-          onChange={this.handleUpdate}
+          onChange={this.handleChange}
         />
         <span className="input-group-addon">
           <var>{dimensionIndexToSymbol(dimensionIndex, totalDimensions)}</var>

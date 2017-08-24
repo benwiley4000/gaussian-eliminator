@@ -1,11 +1,14 @@
 import { StaticRouter, matchPath } from 'react-router-dom';
 
-import App from './components/App';
 import React from 'react';
 import express from 'express';
 import compression from 'compression';
 import path from 'path';
+import { createStore } from 'redux';
 import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import App from './components/App';
+import reducer from './reducer';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -15,11 +18,14 @@ server
   .use(compression())
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', (req, res) => {
+    const store = createStore(reducer);
     const context = {};
     const markup = renderToString(
-      <StaticRouter context={context} location={req.url}>
-        <App />
-      </StaticRouter>
+      <Provider store={store}>
+        <StaticRouter context={context} location={req.url}>
+          <App />
+        </StaticRouter>
+      </Provider>
     );
 
     if (context.url) {

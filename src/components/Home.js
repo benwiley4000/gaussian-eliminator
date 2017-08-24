@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
-import LinearSystemEditor from './LinearSystemEditor';
+import LinearSystemEditorContainer from './LinearSystemEditorContainer';
 
 class Home extends Component {
   render () {
@@ -12,7 +12,7 @@ class Home extends Component {
         <div className="Eliminator-body container">
           <div className="row justify-content-center">
             <h4 className="col-12 prompt">Enter a linear system to solve</h4>
-            <LinearSystemEditor />
+            <LinearSystemEditorContainer />
           </div>
         </div>
       </div>

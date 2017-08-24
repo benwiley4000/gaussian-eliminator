@@ -1,55 +1,14 @@
 import React, { Component } from 'react';
 import VariableEditor from './VariableEditor';
 import ConstantEditor from './ConstantEditor';
-import { linearequations } from 'pure-linear-algebra';
 
 class LinearEquationEditor extends Component {
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      equation: props.equation
-    };
-
-    this.handleCoefficientUpdate = this.handleCoefficientUpdate.bind(this);
-    this.handleConstantUpdate = this.handleConstantUpdate.bind(this);
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (this.props.equation !== nextProps.equation) {
-      this.setState({
-        equation: nextProps.equation
-      });
-    }
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    if (
-      prevState.equation !== this.state.equation &&
-      this.props.equation !== this.state.equation
-    ) {
-      this.props.onUpdate(this.props.rowIndex, this.state.equation);
-    }
-  }
-
-  handleCoefficientUpdate (dimensionIndex, coefficient) {
-    const { coefficients, constant } = this.state.equation;
-    const newCoefficients = coefficients.slice();
-    newCoefficients[dimensionIndex] = coefficient;
-    this.setState({
-      equation: new linearequations.LinearEquation(newCoefficients, constant)
-    });
-  }
-
-  handleConstantUpdate (constant) {
-    const { coefficients } = this.state.equation;
-    this.setState({
-      equation: new linearequations.LinearEquation(coefficients, constant)
-    });
-  }
-
   render () {
-    const { equation: { coefficients, constant } } = this.state;
+    const {
+      equation: { coefficients, constant },
+      onCoefficientChange,
+      onConstantChange
+    } = this.props;
     return (
       <div className="row linear-equation align-items-center">
         {coefficients.reduce((memo, coefficient, index) => {
@@ -59,7 +18,7 @@ class LinearEquationEditor extends Component {
               value={coefficient}
               dimensionIndex={index}
               totalDimensions={coefficients.length}
-              onUpdate={this.handleCoefficientUpdate}
+              onChange={onCoefficientChange}
             />
           );
           memo.push(
@@ -69,7 +28,7 @@ class LinearEquationEditor extends Component {
           );
           return memo;
         }, [])}
-        <ConstantEditor value={constant} onUpdate={this.handleConstantUpdate} />
+        <ConstantEditor value={constant} onChange={onConstantChange} />
       </div>
     );
   }

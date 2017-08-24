@@ -4,11 +4,11 @@ class ConstantEditor extends Component {
   constructor (props) {
     super(props);
 
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleUpdate (e) {
-    this.props.onUpdate(e.target.value);
+  handleChange (e) {
+    this.props.onChange(e.target.value);
   }
 
   render () {
@@ -18,7 +18,7 @@ class ConstantEditor extends Component {
         pattern="[0-9]*"
         type="number"
         value={this.props.value}
-        onChange={this.handleUpdate}
+        onChange={this.handleChange}
       />
     );
   }
