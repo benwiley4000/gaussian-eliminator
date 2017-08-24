@@ -11,16 +11,20 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('root')
-);
+function renderApp (AppComponent) {
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppComponent />
+      </BrowserRouter>
+    </Provider>,
+    document.getElementById('root')
+  );
+}
+
+renderApp(App);
 
 if (module.hot) {
-  module.hot.accept();
+  module.hot.accept('./components/App', () => renderApp(App));
   module.hot.accept('./reducer', () => store.replaceReducer(reducer));
 }
