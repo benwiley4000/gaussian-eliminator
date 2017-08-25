@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { linearsystems } from 'pure-linear-algebra';
 import LinearEquationEditorContainer from './LinearEquationEditorContainer';
 
 function getRange (min, max) {
@@ -18,6 +20,14 @@ const equationCountRange = getRange(equationCountMin, equationCountMax);
 const variableCountRange = getRange(variableCountMin, variableCountMax);
 
 class LinearSystemEditor extends Component {
+  static propTypes = {
+    equationCount: PropTypes.number.isRequired,
+    variableCount: PropTypes.number.isRequired,
+    system: PropTypes.instanceOf(linearsystems.LinearSystem).isRequired,
+    onEquationCountChange: PropTypes.func.isRequired,
+    onVariableCountChange: PropTypes.func.isRequired
+  };
+
   constructor (props) {
     super(props);
     this.handleEquationCountChange = this.handleEquationCountChange.bind(this);

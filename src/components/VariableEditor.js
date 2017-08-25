@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const numberSubscriptOffset = 8272;
 
@@ -27,6 +28,13 @@ function dimensionIndexToSymbol (index, totalDimensions) {
 }
 
 class VariableEditor extends Component {
+  static propTypes = {
+    value: PropTypes.number.isRequired,
+    dimensionIndex: PropTypes.number.isRequired,
+    totalDimensions: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired
+  };
+
   constructor (props) {
     super(props);
 

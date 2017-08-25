@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import LinearEquationEditor from './LinearEquationEditor';
 import { coefficientUpdate, constantUpdate } from '../actions/primarySystem';
 
@@ -11,4 +12,14 @@ function mapDispatchToProps (dispatch, { rowIndex }) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(LinearEquationEditor);
+const LinearEquationEditorContainer = connect(
+  null,
+  mapDispatchToProps
+)(LinearEquationEditor);
+
+LinearEquationEditorContainer.propTypes = {
+  ...LinearEquationEditorContainer.propTypes,
+  rowIndex: PropTypes.number.isRequired
+};
+
+export default LinearEquationEditorContainer;

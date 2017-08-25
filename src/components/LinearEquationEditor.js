@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { linearequations } from 'pure-linear-algebra';
 import VariableEditor from './VariableEditor';
 import ConstantEditor from './ConstantEditor';
 
 class LinearEquationEditor extends Component {
+  static propTypes = {
+    equation: PropTypes.instanceOf(linearequations.LinearEquation).isRequired,
+    onCoefficientChange: PropTypes.func.isRequired,
+    onConstantChange: PropTypes.func.isRequired
+  };
+
   render () {
     const {
       equation: { coefficients, constant },
