@@ -2,7 +2,7 @@ import { linearsystems, linearequations } from 'pure-linear-algebra';
 import { PRIMARY_SYSTEM_UPDATE } from '../actions/primarySystem';
 import zeroArray from '../utils/zeroArray';
 
-const defaultState = {
+export const defaultState = {
   equationCount: 2,
   variableCount: 2,
   system: new linearsystems.LinearSystem([
