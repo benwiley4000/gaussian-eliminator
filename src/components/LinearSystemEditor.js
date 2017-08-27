@@ -110,6 +110,7 @@ class LinearSystemEditor extends Component {
                 className="custom-select"
                 value={equationCount}
                 onChange={this.handleEquationCountChange}
+                disabled={hasPast}
               >
                 {equationCountRange}
               </select>
@@ -120,6 +121,7 @@ class LinearSystemEditor extends Component {
                 className="custom-select"
                 value={variableCount}
                 onChange={this.handleVariableCountChange}
+                disabled={hasPast}
               >
                 {variableCountRange}
               </select>
