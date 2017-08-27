@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 class ConstantEditor extends Component {
   static propTypes = {
-    value: PropTypes.number.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf([''])
+    ]).isRequired,
     onChange: PropTypes.func.isRequired
   };
 

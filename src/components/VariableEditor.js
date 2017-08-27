@@ -29,7 +29,10 @@ function dimensionIndexToSymbol (index, totalDimensions) {
 
 class VariableEditor extends Component {
   static propTypes = {
-    value: PropTypes.number.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf([''])
+    ]).isRequired,
     dimensionIndex: PropTypes.number.isRequired,
     totalDimensions: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired
