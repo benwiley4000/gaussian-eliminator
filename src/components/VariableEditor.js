@@ -43,7 +43,7 @@ class VariableEditor extends Component {
 
   handleChange (e) {
     const { onChange, dimensionIndex } = this.props;
-    onChange(dimensionIndex, e.target.value);
+    onChange(dimensionIndex, Number(e.target.value));
   }
 
   render () {

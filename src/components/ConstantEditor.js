@@ -13,7 +13,7 @@ class ConstantEditor extends Component {
   }
 
   handleChange (e) {
-    this.props.onChange(e.target.value);
+    this.props.onChange(Number(e.target.value));
   }
 
   render () {
