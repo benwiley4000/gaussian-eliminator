@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { linearsystems } from 'pure-linear-algebra';
+import classNames from 'classnames';
 import LinearEquationEditorContainer from './LinearEquationEditorContainer';
 
 function getRange (min, max) {
@@ -9,6 +10,20 @@ function getRange (min, max) {
     range[n - min] = <option key={n} value={n}>{n}</option>;
   }
   return range;
+}
+
+function dimensionIndexToSymbol (index, totalDimensions) {
+  if (totalDimensions > 3) {
+    return `x${numberToSubscript(index + 1)}`;
+  }
+  switch (index) {
+    case 0:
+      return 'x';
+    case 1:
+      return 'y';
+    case 2:
+      return 'z';
+  }
 }
 
 const equationCountMin = 2;
@@ -23,9 +38,22 @@ class LinearSystemEditor extends Component {
   static propTypes = {
     equationCount: PropTypes.number.isRequired,
     variableCount: PropTypes.number.isRequired,
+    primarySystemIsValid: PropTypes.bool.isRequired,
     system: PropTypes.instanceOf(linearsystems.LinearSystem).isRequired,
+    solution: PropTypes.shape({
+      solutionType: PropTypes.oneOf(['single', 'infinite', 'none']).isRequired,
+      solution: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.number.isRequired),
+        PropTypes.instanceOf(linearsystems.Parameterization)
+      ])
+    }),
+    hasPast: PropTypes.bool.isRequired,
+    hasFuture: PropTypes.bool.isRequired,
     onEquationCountChange: PropTypes.func.isRequired,
-    onVariableCountChange: PropTypes.func.isRequired
+    onVariableCountChange: PropTypes.func.isRequired,
+    onGoBack: PropTypes.func.isRequired,
+    onGoForward: PropTypes.func.isRequired,
+    onRequestSolution: PropTypes.func.isRequired
   };
 
   constructor (props) {
@@ -42,12 +70,41 @@ class LinearSystemEditor extends Component {
     this.props.onVariableCountChange(Number(e.target.value));
   }
 
+  getSolutionString () {
+    const { solution } = this.props;
+    if (!solution) {
+      return '';
+    }
+    switch (solution.solutionType) {
+      case 'none':
+        return 'There is no solution to this system.';
+      case 'infinite':
+        return solution.solution.toString();
+      case 'single':
+        return solution.solution.map((c, i) =>
+          `${dimensionIndexToSymbol(i, solution.solution.length)} = ${c}`
+        ).join('\n');
+    }
+  }
+
   render () {
-    const { equationCount, variableCount, system } = this.props;
+    const {
+      equationCount,
+      variableCount,
+      primarySystemIsValid,
+      system,
+      solution,
+      hasPast,
+      hasFuture,
+      onGoBack,
+      onGoForward,
+      onRequestSolution
+    } = this.props;
+    console.log(this.getSolutionString())
     return (
       <div className="row justify-content-center linear-system-container">
         <div className="col-12 size-selection">
-          <div className="row justify-content-around">
+          <div className="row justify-content-center">
             <label>
               Equations{' '}
               <select
@@ -79,6 +136,48 @@ class LinearSystemEditor extends Component {
             />
           )}
         </div>
+        {!primarySystemIsValid &&
+          <div className="col-12 invalid-notice">
+            <span>
+              Enter a valid system of non-zero equations to begin solving.
+            </span>
+          </div>}
+        {primarySystemIsValid &&
+          <div className="col-12 solver-nav">
+            <div className="row justify-content-center">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                disabled={!hasPast}
+                onClick={onGoBack}
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                disabled={!hasFuture}
+                onClick={onGoForward}
+              >
+                Forward
+              </button>
+              <button
+                type="button"
+                className={classNames('btn', {
+                  'btn-primary': !solution,
+                  'btn-success': solution
+                })}
+                disabled={solution}
+                onClick={onRequestSolution}
+              >
+                Solve
+              </button>
+            </div>
+          </div>}
+        {solution &&
+          <div className="col-12 solution">
+            <span>{this.getSolutionString()}</span>
+          </div>}
       </div>
     );
   }

@@ -9,10 +9,11 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "compression": "^1.7.0",
     "express": "4.15.4",
     "prop-types": "^15.5.10",
-    "pure-linear-algebra": "^0.1.0",
+    "pure-linear-algebra": "^0.1.1",
     "razzle": "0.7.5",
     "react": "15.6.1",
     "react-dom": "15.6.1",
@@ -20,6 +21,8 @@
     "react-router-dom": "4.1.2",
     "redux": "^3.7.2",
     "redux-batched-actions": "^0.1.6",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "redux-undo": "^1.0.0-beta9-9-6",
+    "reselect": "^3.0.1"
   }
 }

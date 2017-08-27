@@ -1,5 +1,7 @@
 import { linearsystems, linearequations } from 'pure-linear-algebra';
 import { all, takeEvery, select, call, put } from 'redux-saga/effects';
+import { batchActions } from 'redux-batched-actions';
+import { ActionCreators as undoActions } from 'redux-undo';
 import {
   EQUATION_COUNT_UPDATE,
   VARIABLE_COUNT_UPDATE,
@@ -7,6 +9,7 @@ import {
   CONSTANT_UPDATE,
   primarySystemUpdate,
 } from '../actions/primarySystem';
+import { getPrimarySystemState } from '../selectors/base';
 import zeroArray from '../utils/zeroArray';
 
 function equation (state, action, equationIndex) {
@@ -84,18 +87,17 @@ export function primarySystemReducer (state, action) {
   }
 }
 
-function primarySystemSelector (state) {
-  return state.primarySystem;
-}
-
 function* primarySystem (action) {
-  const primarySystemState = yield select(primarySystemSelector);
+  const primarySystemState = yield select(getPrimarySystemState);
   const newSystemState = yield call(
     primarySystemReducer,
     primarySystemState,
     action
   );
-  yield put(primarySystemUpdate(newSystemState));
+  yield put(batchActions([
+    primarySystemUpdate(newSystemState),
+    undoActions.clearHistory()
+  ]));
 }
 
 export default function* () {

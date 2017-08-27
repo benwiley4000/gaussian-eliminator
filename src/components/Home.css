@@ -21,6 +21,23 @@
   padding-bottom: 1.4em;
 }
 
+.linear-system-container .invalid-notice,
+.linear-system-container .solver-nav,
+.linear-system-container .solution {
+  margin-top: 1em;
+}
+
+.linear-system-container .invalid-notice,
+.linear-system-container .solver-nav,
+.linear-system-container .solution {
+  white-space: pre;
+}
+
+.linear-system-container .size-selection label:not(:first-child),
+.linear-system-container .solver-nav button:not(:first-child) {
+  margin-left: 2em;
+}
+
 .linear-system .linear-equation {
   padding-bottom: 0.8em;
 }

@@ -1,4 +1,5 @@
 import { linearsystems } from 'pure-linear-algebra';
+import undoable from 'redux-undo';
 import { defaultState as defaultSystemState } from './primarySystem';
 import { PRIMARY_SYSTEM_UPDATE } from '../actions/primarySystem';
 
@@ -11,4 +12,4 @@ function system (state = defaultSystemState.system, action) {
   }
 }
 
-export default system;
+export default undoable(system);
