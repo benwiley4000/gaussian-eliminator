@@ -6,7 +6,10 @@ import {
 } from '../actions/primarySystem';
 
 function mapStateToProps (state) {
-  return state.primarySystem;
+  return {
+    ...state.primarySystem,
+    system: state.system,
+  };
 }
 
 function mapDispatchToProps (dispatch) {
