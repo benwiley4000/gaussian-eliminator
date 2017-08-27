@@ -100,7 +100,6 @@ class LinearSystemEditor extends Component {
       onGoForward,
       onRequestSolution
     } = this.props;
-    console.log(this.getSolutionString())
     return (
       <div className="row justify-content-center linear-system-container">
         <div className="col-12 size-selection">
@@ -133,6 +132,7 @@ class LinearSystemEditor extends Component {
               key={i}
               rowIndex={i}
               equation={equation}
+              inputDisabled={hasPast}
             />
           )}
         </div>

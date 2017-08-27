@@ -35,6 +35,7 @@ class VariableEditor extends Component {
     ]).isRequired,
     dimensionIndex: PropTypes.number.isRequired,
     totalDimensions: PropTypes.number.isRequired,
+    disabled: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired
   };
 
@@ -50,7 +51,7 @@ class VariableEditor extends Component {
   }
 
   render () {
-    const { value, dimensionIndex, totalDimensions } = this.props;
+    const { value, dimensionIndex, totalDimensions, disabled } = this.props;
     return (
       <div className="input-group variable">
         <input
@@ -58,6 +59,7 @@ class VariableEditor extends Component {
           pattern="[0-9]*"
           type="number"
           value={value}
+          disabled={disabled}
           onChange={this.handleChange}
         />
         <span className="input-group-addon">

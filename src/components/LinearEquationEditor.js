@@ -7,6 +7,7 @@ import ConstantEditor from './ConstantEditor';
 class LinearEquationEditor extends Component {
   static propTypes = {
     equation: PropTypes.instanceOf(linearequations.LinearEquation).isRequired,
+    inputDisabled: PropTypes.bool.isRequired,
     onCoefficientChange: PropTypes.func.isRequired,
     onConstantChange: PropTypes.func.isRequired
   };
@@ -14,6 +15,7 @@ class LinearEquationEditor extends Component {
   render () {
     const {
       equation: { coefficients, constant },
+      inputDisabled,
       onCoefficientChange,
       onConstantChange
     } = this.props;
@@ -26,6 +28,7 @@ class LinearEquationEditor extends Component {
               value={coefficient}
               dimensionIndex={index}
               totalDimensions={coefficients.length}
+              disabled={inputDisabled}
               onChange={onCoefficientChange}
             />
           );
@@ -36,7 +39,11 @@ class LinearEquationEditor extends Component {
           );
           return memo;
         }, [])}
-        <ConstantEditor value={constant} onChange={onConstantChange} />
+        <ConstantEditor
+          value={constant}
+          disabled={inputDisabled}
+          onChange={onConstantChange}
+        />
       </div>
     );
   }

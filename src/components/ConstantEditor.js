@@ -7,6 +7,7 @@ class ConstantEditor extends Component {
       PropTypes.number,
       PropTypes.oneOf([''])
     ]).isRequired,
+    disabled: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired
   };
 
@@ -26,6 +27,7 @@ class ConstantEditor extends Component {
         pattern="[0-9]*"
         type="number"
         value={this.props.value}
+        disabled={this.props.disabled}
         onChange={this.handleChange}
       />
     );
