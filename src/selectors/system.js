@@ -5,7 +5,7 @@ import { getPrimarySystemIsValid } from './primarySystem';
 
 export const getSystem = createSelector(
   [getSystemState],
-  systemState => systemState.present
+  systemState => systemState.present.system
 );
 
 export const getSolution = createSelector(
@@ -15,6 +15,11 @@ export const getSolution = createSelector(
       ? linearsystems.solveRrefByGaussianElimination(system)
       : null
   )
+);
+
+export const getLastActionForSystem = createSelector(
+  [getSystemState],
+  systemState => systemState.present.action
 );
 
 export const getHasPast = createSelector(
