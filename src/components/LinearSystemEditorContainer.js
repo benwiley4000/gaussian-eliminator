@@ -9,6 +9,7 @@ import {
 import {
   getSystem,
   getSolution,
+  getLastActionForSystem,
   getHasPast,
   getHasFuture
 } from '../selectors/system';
@@ -25,6 +26,7 @@ function mapStateToProps (state) {
     primarySystemIsValid: getPrimarySystemIsValid(state),
     system: getSystem(state),
     solution: getSolution(state),
+    lastActionForSystem: getLastActionForSystem(state),
     hasPast: getHasPast(state),
     hasFuture: getHasFuture(state)
   };
