@@ -8,7 +8,7 @@ Demo at: http://gaussian-eliminator.benwiley.org/
 
 ## How to run locally
 
-You need Node installed: https://nodejs.org/en/
+You need Node installed: https://nodejs.org/
 
 ```bash
 git clone https://github.com/benwiley4000/gaussian-eliminator.git
