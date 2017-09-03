@@ -10,7 +10,7 @@ import {
   primarySystemUpdate,
 } from '../actions/primarySystem';
 import { getPrimarySystemState } from '../selectors/base';
-import zeroArray from '../utils/zeroArray';
+import emptyStringArray from '../utils/emptyStringArray';
 
 function equation (state, action, equationIndex) {
   if (action.rowIndex !== equationIndex) {
@@ -46,8 +46,11 @@ export function primarySystemReducer (state, action) {
         system: new linearsystems.LinearSystem(
           difference < 0
             ? system.equations.slice(0, newEquationCount)
-            : system.equations.concat(zeroArray(difference).map(() =>
-              new linearequations.LinearEquation(zeroArray(variableCount), 0)
+            : system.equations.concat(emptyStringArray(difference).map(() =>
+              new linearequations.LinearEquation(
+                emptyStringArray(variableCount),
+                0
+              )
             ))
         )
       };
@@ -67,7 +70,7 @@ export function primarySystemReducer (state, action) {
             new linearequations.LinearEquation(
               difference < 0
                 ? coefficients.slice(0, newVariableCount)
-                : coefficients.concat(zeroArray(difference)),
+                : coefficients.concat(emptyStringArray(difference)),
               constant
             )
           )

@@ -1,9 +1,9 @@
-function zeroArray (size) {
+function emptyStringArray (size) {
   const array = Array(size);
   for (let i = 0; i < size; i++) {
-    array[i] = 0;
+    array[i] = '';
   }
   return array;
 }
 
-export default zeroArray;
+export default emptyStringArray;

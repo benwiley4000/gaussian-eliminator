@@ -26,6 +26,7 @@ class ConstantEditor extends Component {
         className="form-control constant"
         pattern="[0-9]*"
         type="number"
+        placeholder={0}
         value={this.props.value}
         disabled={this.props.disabled}
         onChange={this.handleChange}

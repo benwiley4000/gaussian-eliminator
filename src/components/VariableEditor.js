@@ -58,6 +58,7 @@ class VariableEditor extends Component {
           className="form-control"
           pattern="[0-9]*"
           type="number"
+          placeholder={0}
           value={value}
           disabled={disabled}
           onChange={this.handleChange}
